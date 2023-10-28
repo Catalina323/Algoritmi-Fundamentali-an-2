@@ -17,9 +17,7 @@ public:
            if(conns.empty())
             {
                 q.push(n-1);
-                safe_nodes.push_back(n-1);
                 vis[n-1] = 1;
-                
             }
             else
             {
@@ -35,8 +33,6 @@ public:
        {
            q_node = q.front();
            q.pop();
-           
-           
         
            if(graph[q_node].empty())
            {
@@ -56,13 +52,10 @@ public:
                     }
                 }
 
-
                 if(node_ok)
                 {
-
                     if(vis[q_node] != 1)
                     {
-                        safe_nodes.push_back(q_node);
                         vis[q_node] = 1;
                     }
 
@@ -74,12 +67,13 @@ public:
             }
         }
 
-        for(int z=0; z<n;z++)
+        for(int i=0; i<n; i++)
         {
-            cout<<vis[z]<<" ";
+            if(vis[i] == 1)
+            {
+                safe_nodes.push_back(i);
+            }
         }
-
-        sort(safe_nodes.begin(), safe_nodes.end());
         return safe_nodes;
         
     }
