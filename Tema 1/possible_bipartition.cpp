@@ -1,64 +1,68 @@
 class Solution {
 public:
-    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-        unordered_map<int, vector<vector<int>>> in;
-        unordered_map<int, vector<vector<int>>> out;
-       
-        vector<int> ordine;
-    
-        queue<int> q;
-    
-        for(auto x:prerequisites)
-        {
-            in[x[0]].push_back(x);
-            out[x[1]].push_back(x);
-        }
-        
+    bool possibleBipartition(int n, vector<vector<int>>& dislikes) {
+        vector<int>graf[n + 1];
+        queue<int>q;
+        int colorat[n+1];
 
-        for(int i=0;i<numCourses;i++)
+        for(int i=1;i<=n;i++)
         {
-            if(in.find(i) == in.end()){
-                q.push(i);
-                ordine.push_back(i);
-            }
-            
+            colorat[i] = 0;
         }
-       int x;
-        while(!q.empty())
-        {
-            x = q.front();
-            q.pop();
 
-            for(auto n:out[x])
+        for(auto x: dislikes)
+        {
+            graf[x[0]].push_back(x[1]);
+            graf[x[1]].push_back(x[0]);
+        }
+
+        int z = 1;
+        for(int j=1;j<=n;j++)
+        {
+            for(z;z<=n;z++)
             {
-                auto poz = find(in[n[0]].begin(), in[n[0]].end(), n);
-                if(poz != in[n[0]].end())
-                {
-                    in[n[0]].erase(poz);   //aici stergem n
-                    if(in[n[0]].empty())
-                    {
-                        q.push(n[0]);
-                        ordine.push_back(n[0]);
-                    }
+                if(colorat[z] == 0){
+                    q.push(z);
+                    colorat[z] = 1;
+                    break;
                 }
             }
 
-            out[x].clear();
-
-
-        }
-    
-        vector<int> vectgol;
-
-        for(int i = 0;i <numCourses; i++)
-        {
-            if(!in[i].empty())
+            if(z==n)
             {
-                return vectgol;
+                break;
+            }
+    
+            while(!q.empty()){
+                int x = q.front();
+                q.pop();
+                for(auto i:graf[x])
+                {
+                    if(colorat[i] == 0)
+                    {
+                        q.push(i);
+                        if(colorat[x] == 1)
+                        {
+                            colorat[i] = 2;
+                        }
+                        if(colorat[x] == 2)
+                        {
+                            colorat[i] = 1;
+                        }
+                    }
+                    else
+                    {
+                        if(colorat[i] == colorat[x])
+                        {
+                            return false;
+                        }
+                    }
+
+                }
             }
         }
 
+        return true;
 
-        return ordine;
     }
 };
