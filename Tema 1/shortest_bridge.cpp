@@ -2,6 +2,8 @@ class Solution {
 public:
     int shortestBridge(vector<vector<int>>& grid) {
         int x=-1, y;
+        queue<pair<int, int>> ins;
+
         //umplem cu 2 una dintre insule:
         for(int i=0;i<grid.size();i++)
         {
@@ -21,6 +23,7 @@ public:
         grid[x][y] = 2;
         queue<pair<int, int>> q;
         q.push(make_pair(x, y));
+        ins.push(make_pair(x, y));
 
         while(!q.empty())
         {
@@ -29,33 +32,32 @@ public:
             x = t.first;
             y = t.second;
 
-           
-
             if(x+1 < grid.size() && grid[x+1][y] == 1)
             {
                 grid[x+1][y] = 2;
                 q.push(make_pair(x+1,y));
+                ins.push(make_pair(x+1, y));
             }
-            
             if(x-1 > 0 && grid[x-1][y] == 1)
             {
                 grid[x-1][y] = 2;
                 q.push(make_pair(x-1,y));
+                ins.push(make_pair(x-1, y));
             }
-           
             if(y+1 < grid.size() && grid[x][y+1] == 1)
             {
                 grid[x][y+1] = 2;
                 q.push(make_pair(x,y+1));
+                ins.push(make_pair(x, y+1));
             }
-            
             if(y-1 > 0 && grid[x][y-1] == 1)
             {
                 grid[x][y-1] = 2;
                 q.push(make_pair(x,y-1));
+                ins.push(make_pair(x, y-1));
             }
-
         }
+        //pana aici am terminat de pus 2 in prima insula
 
 
     
@@ -69,6 +71,6 @@ public:
         }
 
 
-        return 0;
+        return 1;
     }
 };
