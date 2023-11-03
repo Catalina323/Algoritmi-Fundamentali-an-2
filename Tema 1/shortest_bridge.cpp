@@ -38,7 +38,7 @@ public:
                 q.push(make_pair(x+1,y));
                 isl.push(make_pair(x+1, y));
             }
-            if(x-1 > 0 && grid[x-1][y] == 1)
+            if(x-1 >= 0 && grid[x-1][y] == 1)
             {
                 grid[x-1][y] = 2;
                 q.push(make_pair(x-1,y));
@@ -50,7 +50,7 @@ public:
                 q.push(make_pair(x,y+1));
                 isl.push(make_pair(x, y+1));
             }
-            if(y-1 > 0 && grid[x][y-1] == 1)
+            if(y-1 >= 0 && grid[x][y-1] == 1)
             {
                 grid[x][y-1] = 2;
                 q.push(make_pair(x,y-1));
@@ -60,10 +60,10 @@ public:
         //pana aici am terminat de pus 2 in prima insula
         //incepem sa parcurgem coada ins si sa "largim" prima insula (cea cu 2)
 
+
         bool find_isl = false;
-        while(!find_isl)
+        while(!find_isl && !isl.empty())
         {
-            //cout<<"aici";
             pair<int, int> t = isl.front();
             isl.pop();
             x = t.first;
@@ -79,12 +79,13 @@ public:
                 else if(grid[x+1][y] == 1)
                 {
                     find_isl = true;
-                    bridge = grid[x][y];
-                    //break;
+                    bridge = grid[x][y] - 2;
                 }
             }
+            
+            
 
-            if(x-1 > 0)
+            if(x-1 >= 0)
             {
                 if(grid[x-1][y] == 0)
                 {
@@ -94,10 +95,10 @@ public:
                 else if(grid[x-1][y] == 1)
                 {
                     find_isl = true;
-                    bridge = grid[x][y];
-                    //break;
+                    bridge = grid[x][y] - 2;
                 }
             }
+
 
             if(y+1 < grid.size())
             {
@@ -109,11 +110,14 @@ public:
                 else if(grid[x][y+1] == 1)
                 {
                     find_isl = true;
-                    bridge = grid[x][y];
+                    bridge = grid[x][y] - 2;
                 }
             
             }
-            if(y-1 > 0)
+
+
+
+            if(y-1 >= 0)
             {
                 if(grid[x][y-1] == 0)
                 {
@@ -123,24 +127,12 @@ public:
                 else if(grid[x][y-1] == 1)
                 {
                     find_isl = true;
-                    bridge = grid[x][y];
+                    bridge = grid[x][y] - 2;
                 }
             }
 
 
-
         }
-
-    /*
-        for(auto linie: grid)
-        {
-            for(auto elem: linie)
-            {
-                cout<<elem<<" ";
-            }
-            cout<<endl;
-        }
-    */
 
         return bridge;
     }
