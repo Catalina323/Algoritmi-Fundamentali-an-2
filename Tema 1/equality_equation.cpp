@@ -9,46 +9,54 @@ public:
 
         for(auto eq: equations)
         {
+
+            ok1 = false;
+            ok2 = false;
+            ok3 = false;
+            ok4 = false;
+
+            for(int i = 0; i < count_a; i++)
+            {
+
+                if(eq[0] == a[i])
+                {
+                    ok1 = true;
+                }
+                if(eq[3] == a[i])
+                {
+                    ok2 = true;
+                }
+            }
+
+            for(int i = 0; i < count_b; i++)
+            {
+                if(eq[0] == b[i])
+                {
+                    ok3 = true;
+                }
+                if(eq[3] == b[i])
+                {
+                    ok4 = true;
+                }
+            }
+
+            //ok1 = primul elem in a
+            //ok2 = al doilea elem in a
+            //ok3 = primul elem in b
+            //ok4 = al doilea elem in b
+
             if(eq[1] == '!')
             {
-                //a.push_back((int)eq[0]);
-                //b.push_back((int)eq[3]);
                 
-                //a[count_a] = (int)eq[0];
-                //b[count_b] = (int)eq[3];
-
-                ok1 = false;
-                ok2 = false;
-                ok3 = false;
-                ok4 = false;
-
-                for(int i = 0; i < count_a; i++)
+                if(ok1 && ok2)
                 {
-                    if(eq[0] == a[i])
-                    {
-                        ok1 = true;
-                    }
-                    if(eq[3] == a[i])
-                    {
-                        ok2 = true;
-                    }
-                }
-
-                for(int i = 0; i < count_b; i++)
-                {
-                    if(eq[0] == b[i])
-                    {
-                        ok3 = true;
-                    }
-                    if(eq[3] == b[i])
-                    {
-                        ok4 = true;
-                    }
-                }
-                
-                if(ok1 && ok2 || ok3 && ok4)
                     return false;
                 
+                }
+                if(ok3 && ok4)
+                {
+                    return false;
+                }
                 if(ok2 && !ok3)
                 {
                     a[count_a] = (int)eq[3];
@@ -59,6 +67,13 @@ public:
                     b[count_b] = (int)eq[0];
                     count_b++;
                 }
+
+                if(ok1 && !ok2)
+                {
+                    b[count_b] = (int)eq[3];
+                    count_b++;
+                }
+
                 if(!ok1 && !ok2 && !ok3 && !ok4)
                 {
                     a[count_a] = (int)eq[0];
@@ -76,13 +91,56 @@ public:
             {
                 //a.push_back((int)eq[0]);
                 //a.push_back((int)eq[3]);
+                //cout<<"intra pe egal"<<endl;
+
+                //if(ok1 && ok2 || ok3 && ok4)
+                  //  return false;
                 
-                a[count_a] = (int)eq[0];
-                count_a++;
-                a[count_a] = (int)eq[3];
-                count_a++;
+
+                if(ok1 && ok2 || ok3 && ok4)
+                    break;
+
+
+                if(ok2 && !ok3)
+                {
+                    a[count_a] = (int)eq[3];
+                    count_a++;
+                }
+                if(ok1 && !ok4)
+                {
+                    b[count_b] = (int)eq[3];
+                    count_b++;
+                }
+                //if(ok2 && ok3)
+                if(!ok1 && !ok2 && !ok3 && !ok4 )
+                {
+                    a[count_a] = (int)eq[0];
+                    count_a++;
+                    a[count_a] = (int)eq[3];
+                    count_a++;
+
+                }
+
+                if(ok2 && ok3 )
+                    return false;
+                
+
             }
         }
+        
+        cout<<"a"<<endl;
+        for(int i = 0; i< count_a; i++)
+        {
+            cout<<a[i]<<" ";
+        }
+        cout<<endl;
+        cout<<"b"<<endl;
+        for(int i = 0;i<count_b;i++)
+        {
+            cout<<b[i]<<" ";
+        }
+        cout<<endl;
+        
 
        
         vector<int> v(10);
