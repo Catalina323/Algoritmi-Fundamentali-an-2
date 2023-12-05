@@ -50,7 +50,6 @@ int main()
     vector<pair<pair<int, int>, int>> tunele;
     int n, m, a, t1, t2, c;
     fin>>n>>m>>a;
-    //cout<<n<<" "<<m<<" "<<a<<endl;
     int suma = 0;
 
     for(int i = 1; i <= m; i++)
@@ -85,34 +84,17 @@ int main()
             {
                 suma -= tunel.second;
                 suma += a;
-                //cout<<a<<endl;
             }
             else
             {
                 suma += tunel.second;
-                //cout<<tunel.second<<endl;
             }
         }
         else
         {
             suma -= tunel.second;
-            //cout<<"-"<<tunel.second<<endl;
         }
     }
-/*
-    for(int i = 1; i<=n; i++)
-    {
-        cout<<tata[i]<<" ";
-
-    }
-    cout<<endl;
-    for(int i = 1; i<=n; i++)
-    {
-        cout<<h[i]<<" ";
-
-    }
-    cout<<endl;
-*/
 
     int nr = 0;
     for(int i=1; i<=n;i++)
